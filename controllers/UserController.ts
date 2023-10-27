@@ -224,3 +224,11 @@ export const updateAccessToken = CatchAsyncError(async (req: Request, res: Respo
         return next(new ErrorHandler(error.message, 400));
     }
 });
+
+
+export const currentUser = CatchAsyncError(async (req: Request, res: Response, next: NextFunction) => {
+    res.status(200).json({
+        success: true,
+        user: req.user
+    })
+})

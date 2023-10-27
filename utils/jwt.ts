@@ -38,6 +38,7 @@ export const sendToken = async (user: IUser, statusCode: number, res: Response) 
     const refreshToken = user.signRefreshToken();
 
     //upload session to redis
+    user.password = ""
 
     redis.set(user._id, JSON.stringify(user));
 

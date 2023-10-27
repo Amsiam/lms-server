@@ -7,7 +7,7 @@ const emailRegexPattern: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 export interface IUser extends Document {
     email: string;
     name: string;
-    password: string;
+    password?: string;
     avatar: {
         public_id: string,
         url: string
@@ -74,7 +74,7 @@ userSchema.pre<IUser>("save", async function (next) {
         next()
     }
 
-    this.password = await Bun.password.hash(this.password, "bcrypt");
+    this.password = await Bun.password.hash(this.password!, "bcrypt");
     next()
 })
 userSchema.methods.comparePassword = async function (enteredPassword: string) {

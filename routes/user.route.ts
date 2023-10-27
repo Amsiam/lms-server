@@ -1,6 +1,6 @@
 
 import express from 'express'
-import { activateUser, loginUser, logoutUser, registrationUser, updateAccessToken } from '../controllers/UserController'
+import { activateUser, currentUser, loginUser, logoutUser, registrationUser, updateAccessToken } from '../controllers/UserController'
 import { isAuth } from '../middleware/auth';
 import { authorizeRole } from '../middleware/authorizeRole';
 
@@ -11,10 +11,16 @@ userRouter.post('/activate-user', activateUser);
 
 
 userRouter.post('/login', loginUser);
-userRouter.get('/logout', isAuth, logoutUser);
-
 
 userRouter.post('/refreshtoken', updateAccessToken);
+
+
+
+//auth required
+
+userRouter.get('/logout', isAuth, logoutUser);
+userRouter.get('/me', isAuth, currentUser);
+
 
 
 export default userRouter;
